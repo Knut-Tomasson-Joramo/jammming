@@ -15,10 +15,10 @@ export class Track extends React.Component {
       <div className="Track">
         <div className="Track-information">
           <h3>
-            {/* <!-- track name will go here --> */}
+            {this.props.name}
           </h3>
           <p>
-            {/* <!-- track artist will go here--> | <!-- track album will go here --> */}
+            {this.props.artist} | {this.props.albume}
           </p>
         </div>
         <button className="Track-action">

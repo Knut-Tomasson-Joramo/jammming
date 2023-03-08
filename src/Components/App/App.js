@@ -3,20 +3,32 @@ import './App.css';
 import { SearchBar } from '../SearchBar/SearchBar.js';
 import { SearchResults } from '../SearchResults/SearchResults.js';
 import { Playlist } from '../Playlist/Playlist.js'
+import React from 'react';
 
-function App() {
-  return (
+export class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchResults: [
+        {name: 'Killing in the name of', artist: 'RAGM', album: 'some albume', id: '1234'},
+        {name: 'Hurt', artist: 'Johnny Cash', album: 'the albume', id: '1235'},
+        {name: 'Toms Diner', artist: 'Poppy', album: 'poppys', id: '1236'}
+      ]
+    };
+  }
+  render() {
+    return (
     <div>
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
       <div className="App">
-        {/* <!-- Add a SearchBar component --> */}
+        <SearchBar />
         <div className="App-playlist">
-        {/* <!-- Add a SearchResults component --> */}
-        {/* <!-- Add a Playlist component --> */}
+          <SearchResults searchResults={this.state.searchResults}/>
+          <Playlist />
         </div>
-  </div>
-</div>
-  );
+      </div>
+    </div>
+    );
+  }
 }
 
-export default App;

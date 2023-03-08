@@ -10,8 +10,8 @@ export class App extends React.Component {
     super(props);
     this.state = {
       searchResults: [
-        {name: 'Killing in the name of', artist: 'RAGM', album: 'some albume', id: '1234'},
-        {name: 'Hurt', artist: 'Johnny Cash', album: 'the albume', id: '1235'},
+        {name: 'Killing in the name of', artist: 'RAGM', album: 'some album', id: '1234'},
+        {name: 'Hurt', artist: 'Johnny Cash', album: 'the album', id: '1235'},
         {name: 'Toms Diner', artist: 'Poppy', album: 'poppys', id: '1236'}
       ]
     };

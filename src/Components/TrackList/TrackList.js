@@ -11,7 +11,9 @@ export class TrackList extends React.Component {
                                     name={track.name}
                                     artist={track.artist}
                                     album={track.album}
-                                    key={track.id} />);
+                                    key={track.id}
+                                    track={track}
+                                    onAdd={this.props.onAdd} />);
     return (
       <div className="TrackList">
         {tracks}

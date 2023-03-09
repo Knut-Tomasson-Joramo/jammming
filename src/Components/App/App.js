@@ -20,6 +20,7 @@ export class App extends React.Component {
       ]
     };
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
 
   addTrack(track) {
@@ -31,6 +32,19 @@ export class App extends React.Component {
       this.setState( {
         playlistTracks: playlistTracksCopy
       });
+    }
+  }
+
+  removeTrack(track) {
+    const trackId = track.id;
+    const copyOfPlaylist = this.state.playlistTracks;
+    // find index of track if exists
+    const index = copyOfPlaylist.findIndex(e => e.id === trackId);
+    if (index !== -1) {
+      copyOfPlaylist.splice(index, 1);
+      this.setState({
+        playlistTracks: copyOfPlaylist
+      })
     }
   }
 
@@ -46,7 +60,8 @@ export class App extends React.Component {
             onAdd={this.addTrack} />
           <Playlist 
             playlistName={this.state.playlistName} 
-            playlistTracks={this.state.playlistTracks} />
+            playlistTracks={this.state.playlistTracks}
+            onRemove={this.removeTrack} />
         </div>
       </div>
     </div>

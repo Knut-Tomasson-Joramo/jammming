@@ -8,9 +8,6 @@ export class TrackList extends React.Component {
                    .props
                    .tracks
                    .map((track) => <Track 
-                                    name={track.name}
-                                    artist={track.artist}
-                                    album={track.album}
                                     key={track.id}
                                     track={track}
                                     onAdd={this.props.onAdd}

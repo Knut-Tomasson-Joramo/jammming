@@ -16,7 +16,7 @@ let userToken = '';
 
 const Spotify = {};
 
-async function getAccessToken() {
+function getAccessToken() {
     if (userToken) {
         return userToken;
     }
@@ -30,14 +30,34 @@ async function getAccessToken() {
         const expiration = expires_found[0];
         window.setTimeout(() => userToken = '', expiration * 1000);
         window.history.pushState('Access Token', null, '/'); 
+    } else {
+        winwow.location(url);
     }
+    
+}
 
+async function search(term) {
+    let endpoint = 'https://api.spotify.com/v1/search?type=track&q=';
+    endpoint += term;
 
-    const response = await fetch(url);
+    const response = await fetch(
+        endpoint,
+        {
+          headers: {Authorization: `Bearer ${userToken}`}
+        } );
+    const response_json = await response.json();
 
-    if(!response.ok) {
-        throw new Error('Bad response');
-    }
+    const tracks = response_json.map((item) => {
+      const track = {
+        id: item.track.id,
+        name: item.track.name,
+        artist: item.track.artist[0].name,
+        album: item.track.album.name,
+        URI: item.track.uri
+      }
+      return track;
+    })
+    return tracks;
 }
 
 export default Spotify;

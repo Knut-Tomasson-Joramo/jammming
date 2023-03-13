@@ -47,6 +47,10 @@ async function search(term) {
         } );
     const response_json = await response.json();
 
+    if (!response_json) {
+      return [];
+    }
+
     const tracks = response_json.map((item) => {
       const track = {
         id: item.track.id,
@@ -58,6 +62,35 @@ async function search(term) {
       return track;
     })
     return tracks;
+}
+
+async function savePlaylist(playlistName, trackURIs) {
+  if (!playlistName && !trackURIs) {
+    return null;
+  }
+  const accesToken = userToken;
+  const headersVariable = {Authorization: `Bearer ${accesToken}`}
+  let userID = null;
+  
+  const response = await fetch('api.spotify.com/v1/me', {headers: headersVariable});
+  const response_json = await response.json();
+  userID = response_json.id;
+
+  const postBody = {
+    name: playlistName,
+    description: "New playlist description",
+    public: false
+  }
+  const playlistResponse = await fetch(
+    `api.spotify.com/v1/users/${userID}/playlists`,
+    {
+      method: 'POST',
+      headers: headersVariable,
+      body: JSON.stringify(postBody)
+    }
+  );
+  const playlistResponseJson = await playlistResponse.JSON()
+  const playlistID = playlistResponseJson.id;
 }
 
 export default Spotify;

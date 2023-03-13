@@ -31,7 +31,7 @@ function getAccessToken() {
         window.setTimeout(() => userToken = '', expiration * 1000);
         window.history.pushState('Access Token', null, '/'); 
     } else {
-        winwow.location(url);
+        window.location(url);
     }
     
 }

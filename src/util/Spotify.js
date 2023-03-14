@@ -89,8 +89,21 @@ async function savePlaylist(playlistName, trackURIs) {
       body: JSON.stringify(postBody)
     }
   );
-  const playlistResponseJson = await playlistResponse.JSON()
-  const playlistID = playlistResponseJson.id;
+  const playlistResponseJson = await playlistResponse.JSON();
+  let playlistID = playlistResponseJson.id;
+
+  const addItemsResponse = await fetch(
+    `api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`,
+    {
+      method: 'POST',
+      headers: headersVariable,
+      body: JSON.stringify({
+        uris: trackURIs
+      })
+    }
+  );
+  const addResponseJSON = await addItemsResponse.JSON();
+  playlistID = addResponseJSON.snapshot_id;
 }
 
 export default Spotify;
